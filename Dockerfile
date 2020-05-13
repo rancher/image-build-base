@@ -1,4 +1,4 @@
-ARG GO_IMAGE=goboring/golang:1.13.8b4
+ARG GO_IMAGE=goboring/golang:1.14.2b4
 
 FROM ${GO_IMAGE}
 ENV LC_ALL C

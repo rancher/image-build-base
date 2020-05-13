@@ -7,7 +7,7 @@ platform:
 
 steps:
 - name: build
-  image: ranchertest/image-build-base:v0.1.0
+  image: goboring/golang:${DRONE_TAG}b4
   volumes:
   - name: dockersock
     path: /var/run
@@ -19,7 +19,7 @@ steps:
     - tag
 
 - name: push
-  image: ranchertest/image-build-base:v0.1.0
+  image: goboring/golang:${DRONE_TAG}b4
   volumes:
   - name: dockersock
     path: /var/run
@@ -36,7 +36,7 @@ steps:
     - tag
 
 - name: scan
-  image: ranchertest/image-build-base:v0.1.0
+  image: goboring/golang:${DRONE_TAG}b4
   volumes:
   - name: dockersock
     path: /var/run
@@ -47,7 +47,7 @@ steps:
     - tag
 
 - name: manifest
-  image: ranchertest/image-build-base:v0.1.0
+  image: goboring/golang:${DRONE_TAG}b4
   volumes:
   - name: dockersock
     path: /var/run

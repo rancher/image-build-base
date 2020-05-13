@@ -7,7 +7,7 @@ platform:
 
 steps:
 - name: build
-  image: goboring/golang:${DRONE_TAG}b4
+  image: docker:dind
   volumes:
   - name: dockersock
     path: /var/run

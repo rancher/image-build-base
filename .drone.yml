@@ -13,13 +13,14 @@ steps:
     path: /var/run
   commands:
   - sleep 20
+  - apt install -y make
   - TAG=${DRONE_TAG} make
   when:
     event:
     - tag
 
 - name: push
-  image: goboring/golang:${DRONE_TAG}b4
+  image: ranchertest/image-build-base:${DRONE_TAG}
   volumes:
   - name: dockersock
     path: /var/run
@@ -36,7 +37,7 @@ steps:
     - tag
 
 - name: scan
-  image: goboring/golang:${DRONE_TAG}b4
+  image: ranchertest/image-build-base:${DRONE_TAG}
   volumes:
   - name: dockersock
     path: /var/run
@@ -47,7 +48,7 @@ steps:
     - tag
 
 - name: manifest
-  image: goboring/golang:${DRONE_TAG}b4
+  image: ranchertest/image-build-base:${DRONE_TAG}
   volumes:
   - name: dockersock
     path: /var/run

@@ -20,11 +20,12 @@ steps:
     - tag
 
 - name: push
-  image: ranchertest/image-build-base:${DRONE_TAG}
+  image: docker:dind
   volumes:
   - name: dockersock
     path: /var/run
   commands:
+  - apk add make
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   - TAG=${DRONE_TAG} make image-push
   environment:

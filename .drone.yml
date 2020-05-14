@@ -69,7 +69,7 @@ platform:
 
 steps:
 - name: build
-  image: arm64v8:dind
+  image: docker:dind
   volumes:
   - name: dockersock
     path: /var/run
@@ -82,7 +82,7 @@ steps:
     - tag
 
 - name: push
-  image: arm64v8:dind
+  image: docker:dind
   volumes:
   - name: dockersock
     path: /var/run
@@ -112,7 +112,7 @@ steps:
 
 services:
 - name: docker
-  image: arm64v8:dind
+  image: docker:dind
   privileged: true
   volumes:
   - name: dockersock

@@ -21,11 +21,11 @@ RUN apt update                 && \
 RUN if [ "${GOARCH}" = "arm64" ]; then \
         wget https://github.com/aquasecurity/trivy/releases/download/v0.7.0/trivy_0.7.0_Linux-64bit.tar.gz && \
         tar -zxvf trivy_0.7.0_Linux-ARM64.tar.gz                                                           && \
-        mv trivy /usr/local/bin;                                                                               \
+        mv trivy /usr/local/bin;                                                                              \
     else                                                                                                      \
         wget https://github.com/aquasecurity/trivy/releases/download/v0.7.0/trivy_0.7.0_Linux-64bit.tar.gz && \
         tar -zxvf trivy_0.7.0_Linux-64bit.tar.gz                                                           && \
-        mv trivy /usr/local/bin;                                                                               \
+        mv trivy /usr/local/bin;                                                                              \
     fi
 
 RUN trivy --download-db-only

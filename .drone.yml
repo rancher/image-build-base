@@ -38,7 +38,7 @@ steps:
     - tag
 
 - name: scan
-  image: ranchertest/build-base:${DRONE_TAG}-$${GOARCH}
+  image: ranchertest/build-base:${DRONE_TAG}-amd64
   volumes:
   - name: dockersock
     path: /var/run
@@ -49,7 +49,7 @@ steps:
     - tag
 
 - name: manifest
-  image: ranchertest/build-base:${DRONE_TAG}-$${GOARCH}
+  image: ranchertest/build-base:${DRONE_TAG}-amd64
   volumes:
   - name: dockersock
     path: /var/run
@@ -111,7 +111,7 @@ steps:
     - tag
 
 - name: scan
-  image: ranchertest/build-base:${DRONE_TAG}-$${GOARCH}
+  image: ranchertest/build-base:${DRONE_TAG}-arm64
   volumes:
   - name: dockersock
     path: /var/run
@@ -122,7 +122,7 @@ steps:
     - tag
 
 - name: manifest
-  image: ranchertest/build-base:${DRONE_TAG}-$${GOARCH}
+  image: ranchertest/build-base:${DRONE_TAG}-arm64
   volumes:
   - name: dockersock
     path: /var/run

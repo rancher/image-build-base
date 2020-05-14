@@ -6,10 +6,6 @@ all:
 image-push:
 	docker push ranchertest/build-base:$(TAG)
 
-.PHONY: image-scan
-image-scan:
-	trivy --severity $(SEVERITIES) --no-progress --skip-update --ignore-unfixed ranchertest/build-base:$(TAG)
-
 .PHONY: image-manifest
 image-manifest:
 	DOCKER_CLI_EXPERIMENTAL=enabled docker manifest create ranchertest/build-base:$(TAG) \

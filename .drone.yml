@@ -37,17 +37,6 @@ steps:
     event:
     - tag
 
-- name: scan
-  image: ranchertest/build-base:${DRONE_TAG}-amd64
-  volumes:
-  - name: dockersock
-    path: /var/run
-  commands:
-  - TAG=${DRONE_TAG} make image-scan
-  when:
-    event:
-    - tag
-
 - name: manifest
   image: ranchertest/build-base:${DRONE_TAG}-amd64
   volumes:
@@ -106,17 +95,6 @@ steps:
       from_secret: docker_username
     DOCKER_PASSWORD:
       from_secret: docker_password
-  when:
-    event:
-    - tag
-
-- name: scan
-  image: ranchertest/build-base:${DRONE_TAG}-arm64
-  volumes:
-  - name: dockersock
-    path: /var/run
-  commands:
-  - TAG=${DRONE_TAG} make image-scan
   when:
     event:
     - tag

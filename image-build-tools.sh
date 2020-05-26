@@ -50,6 +50,10 @@ ERR_GEN=1
 ERR_DEP=2
 ERR_ARG=3
 
+# cmd_check checks if the command output
+# passed in is empty or not. If it is then
+# we print an error containing the missing
+# command and exit.
 cmd_check() {
     if [ -z "$1" ]; then 
         echo "error: $0 requires $1"

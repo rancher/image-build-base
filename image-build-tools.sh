@@ -50,6 +50,13 @@ ERR_GEN=1
 ERR_DEP=2
 ERR_ARG=3
 
+cmd_check() {
+    if [ -z "$1" ]; then 
+        echo "error: $0 requires $1"
+        exit ${ERR_DEP}
+    fi
+}
+
 # make sure we have at least one argument to 
 # process or die early.
 if [ -z "$1" ]; then
@@ -59,31 +66,19 @@ fi
 
 # make sure we have docker installed
 GIT="$(command -v git)"
-if [ -z "${GIT}" ]; then 
-    echo "error: $0 requires git"
-    exit ${ERR_DEP}
-fi
+cmd_check "${GIT}"
 
 # make sure we have docker installed
 DOCKER="$(command -v docker)"
-if [ -z "${DOCKER}" ]; then 
-    echo "error: $0 requires docker"
-    exit ${ERR_DEP}
-fi
+cmd_check "${DOCKER}"
 
 # make sure we have jq installed
 JQ="$(command -v jq)"
-if [ -z "${JQ}" ]; then 
-    echo "error: $0 requires jq"
-    exit ${ERR_DEP}
-fi
+cmd_check "${JQ}"
 
 # make sure we have curl installed
 CURL="$(command -v curl)"
-if [ -z "${CURL}" ]; then 
-    echo "error: $0 requires curl"
-    exit ${ERR_DEP}
-fi
+cmd_check "${CURL}"
 
 COMMAND="$1"
 

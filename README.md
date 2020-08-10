@@ -1,7 +1,7 @@
-# ranchertest/image-build-base
+# rancher/image-build-base
 
 ## Build
 
 ```sh
-TAG=v0.4.0 make
+TAG=v1.14.2 make
 ```

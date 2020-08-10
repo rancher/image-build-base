@@ -42,7 +42,7 @@ commands:
 
 examples:
     $0 get all-repos local
-    $0 udpate build-image ranchertest/build-base:v1.14.2
+    $0 update build-image rancher/build-base:v1.14.2
 "
 
 # return error codes

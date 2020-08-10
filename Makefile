@@ -15,4 +15,3 @@ image-push:
 image-manifest:
 	DOCKER_CLI_EXPERIMENTAL=enabled docker manifest create rancher/build-base:$(TAG)-$(ARCH) \
 		$(shell docker image inspect rancher/build-base:$(TAG)-$(ARCH) | jq -r '.[] | .RepoDigests[0]')
-	DOCKER_CLI_EXPERIMENTAL=enabled docker manifest push rancher/build-base:$(TAG)-$(ARCH)

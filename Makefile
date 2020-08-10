@@ -1,6 +1,9 @@
+UNAME_M = $(shell uname -m)
 ARCH=
-ifeq ($(shell uname -m), x86_64)
+ifeq ($(UNAME_M), x86_64)
 	ARCH=amd64
+else
+	ARCH=$(UNAME_M)
 endif
 
 .PHONY: all

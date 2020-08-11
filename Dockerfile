@@ -1,4 +1,4 @@
-ARG GO_IMAGE=goboring/golang:1.14.2b4
+ARG GO_IMAGE=goboring/golang:1.14.6b4
 ARG TRIVY_VERSION=0.7.0
 
 FROM ${GO_IMAGE}

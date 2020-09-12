@@ -38,7 +38,7 @@ steps:
     - tag
 
 - name: manifest
-  image: rancher/build-base:${DRONE_TAG}-amd64
+  image: rancher/hardened-build-base:${DRONE_TAG}-amd64
   volumes:
   - name: dockersock
     path: /var/run

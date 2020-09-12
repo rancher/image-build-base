@@ -1,4 +1,4 @@
-# rancher/image-build-base
+# rancher/hardened-build-base
 
 ## Build
 

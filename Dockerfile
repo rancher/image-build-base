@@ -1,7 +1,7 @@
-ARG GO_IMAGE=goboring/golang:1.14.2b4
-ARG TRIVY_VERSION=0.7.0
+ARG GO_IMAGE=goboring/golang:1.13.15b4
 
 FROM ${GO_IMAGE}
+ARG TRIVY_VERSION=0.11.0
 ENV LC_ALL C
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt update                                      && \
@@ -19,12 +19,12 @@ RUN apt update                 && \
     apt install -y docker-ce
 
 RUN if [ "$(go env GOARCH)" = "arm64" ]; then \
-        wget https://github.com/aquasecurity/trivy/releases/download/v0.7.0/trivy_0.7.0_Linux-ARM64.tar.gz && \
-        tar -zxvf trivy_0.7.0_Linux-ARM64.tar.gz                                                           && \
+        wget https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-ARM64.tar.gz && \
+        tar -zxvf trivy_${TRIVY_VERSION}_Linux-ARM64.tar.gz                                                && \
         mv trivy /usr/local/bin;                                                                              \
     else                                                                                                      \
-        wget https://github.com/aquasecurity/trivy/releases/download/v0.7.0/trivy_0.7.0_Linux-64bit.tar.gz && \
-        tar -zxvf trivy_0.7.0_Linux-64bit.tar.gz                                                           && \
+        wget https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz && \
+        tar -zxvf trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz                                                && \
         mv trivy /usr/local/bin;                                                                              \
     fi
 

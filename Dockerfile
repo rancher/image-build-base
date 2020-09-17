@@ -1,8 +1,7 @@
 ARG GO_IMAGE=goboring/golang:1.13.15b4
-ARG TRIVY_VERSION=0.11.0
 
 FROM ${GO_IMAGE}
-ARG TRIVY_VERSION
+ARG TRIVY_VERSION=0.11.0
 ENV LC_ALL C
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt update                                      && \

@@ -6,9 +6,17 @@ else
 	ARCH=$(UNAME_M)
 endif
 
-.PHONY: all
-all:
-	docker build --build-arg TAG=$(TAG) -t rancher/hardened-build-base:$(TAG)-$(ARCH) .
+TAG 			?= v1.13.15b4
+GOLANG_VERSION 	?= $(shell echo $(TAG) | sed -e "s/v\(.*\)b.*/\1/g")
+GOBORING_BUILD	?= $(shell echo $(TAG) | sed -e "s/v.*b//g")
+
+.PHONY: image-build
+image-build:
+	docker build \
+		--build-arg GOLANG_VERSION=$(GOLANG_VERSION) \
+		--build-arg GOBORING_BUILD=$(GOBORING_BUILD) \
+		--tag rancher/hardened-build-base:$(TAG)-$(ARCH) \
+		.
 
 .PHONY: image-push
 image-push:

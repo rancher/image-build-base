@@ -27,23 +27,12 @@ steps:
   commands:
   - apk add make
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-  - TAG=${DRONE_TAG} make image-push
+  - TAG=${DRONE_TAG} make image-push image-manifest
   environment:
     DOCKER_USERNAME:
       from_secret: docker_username
     DOCKER_PASSWORD:
       from_secret: docker_password
-  when:
-    event:
-    - tag
-
-- name: manifest
-  image: rancher/hardened-build-base:${DRONE_TAG}-amd64
-  volumes:
-  - name: dockersock
-    path: /var/run
-  commands:
-  - TAG=${DRONE_TAG} make image-manifest
   when:
     event:
     - tag

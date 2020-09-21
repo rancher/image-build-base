@@ -26,7 +26,7 @@ RUN set -ex; \
         mv trivy /usr/local/bin;                             \
     else                                                     \
         wget -q "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz"; \
-        tar -xzf trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz; \
+        tar -xzf trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz;  \
         mv trivy /usr/local/bin;                             \
     fi
 RUN trivy --download-db-only
@@ -46,5 +46,5 @@ RUN apk --no-cache add \
     wget
 RUN rm -fr /usr/local/go/*
 COPY --from=goboring /usr/local/boring/go/ /usr/local/go/
-COPY --from=trivy /usr/local/bin/ /usr/local/bin/
-RUN go version
+COPY --from=trivy /usr/local/bin/ /usr/bin/
+RUN set -x && go version && trivy --version

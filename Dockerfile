@@ -38,6 +38,7 @@ RUN apk --no-cache add \
     curl \
     docker \
     g++ \
+    gcc \
     git \
     make \
     mercurial \
@@ -47,4 +48,5 @@ RUN apk --no-cache add \
 RUN rm -fr /usr/local/go/*
 COPY --from=goboring /usr/local/boring/go/ /usr/local/go/
 COPY --from=trivy /usr/local/bin/ /usr/bin/
+COPY scripts/ /usr/local/bin/
 RUN set -x && go version && trivy --version

@@ -9,13 +9,7 @@ WORKDIR /usr/local/boring
 RUN tar xzf ../boring.tgz
 WORKDIR /usr/local/boring/go/src
 RUN ./make.bash
-RUN rm -rf \
-    /usr/local/go/pkg/*/cmd \
-    /usr/local/go/pkg/bootstrap \
-    /usr/local/go/pkg/obj \
-    /usr/local/go/pkg/tool/*/api \
-    /usr/local/go/pkg/tool/*/go_bootstrap \
-    /usr/local/go/src/cmd/dist/dist
+COPY scripts/ /usr/local/boring/go/bin/
 
 FROM library/golang:${GOLANG_VERSION}-alpine AS trivy
 ARG TRIVY_VERSION=0.11.0
@@ -29,7 +23,6 @@ RUN set -ex; \
         tar -xzf trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz;  \
         mv trivy /usr/local/bin;                             \
     fi
-RUN trivy --download-db-only
 
 FROM library/golang:${GOLANG_VERSION}-alpine
 RUN apk --no-cache add \
@@ -37,6 +30,7 @@ RUN apk --no-cache add \
     coreutils \
     curl \
     docker \
+    file \
     g++ \
     gcc \
     git \
@@ -48,5 +42,7 @@ RUN apk --no-cache add \
 RUN rm -fr /usr/local/go/*
 COPY --from=goboring /usr/local/boring/go/ /usr/local/go/
 COPY --from=trivy /usr/local/bin/ /usr/bin/
-COPY scripts/ /usr/local/bin/
-RUN set -x && go version && trivy --version
+RUN set -x \
+ && chmod -v +x /usr/local/go/bin/go-*.sh \
+ && go version \
+ && trivy --download-db-only --quiet

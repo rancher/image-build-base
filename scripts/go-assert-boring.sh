@@ -1,6 +1,6 @@
 #!/bin/sh
 if [ -z "$*" ]; then
-    echo "usage: $0 file1 \[file2 ... fileN\]"
+    echo "usage: $0 file1 [file2 ... fileN]"
 fi
 for exe in "${@}"; do
     if [ ! -x "${exe}" ]; then
@@ -8,7 +8,7 @@ for exe in "${@}"; do
         exit 1
     fi
     if [ $(go tool nm ${exe} | grep Cfunc__goboringcrypto | wc -l) -eq 0 ]; then
-        echo "${exe}: missing goboring linkage" >&2
+        echo "${exe}: missing goboring symbols" >&2
         exit 1
     fi
 done

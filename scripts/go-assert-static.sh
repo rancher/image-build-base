@@ -1,6 +1,6 @@
 #!/bin/sh
 if [ -z "$*" ]; then
-    echo "usage: $0 file1 \[file2 ... fileN\]"
+    echo "usage: $0 file1 [file2 ... fileN]"
 fi
 for exe in "${@}"; do
     if [ ! -x "${exe}" ]; then

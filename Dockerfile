@@ -12,7 +12,7 @@ RUN ./make.bash
 COPY scripts/ /usr/local/boring/go/bin/
 
 FROM library/golang:${GOLANG_VERSION}-alpine AS trivy
-ARG TRIVY_VERSION=0.11.0
+ARG TRIVY_VERSION=0.18.3
 RUN set -ex; \
     if [ "$(go env GOARCH)" = "arm64" ]; then \
         wget -q "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-ARM64.tar.gz"; \

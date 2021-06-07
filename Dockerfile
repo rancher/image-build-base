@@ -35,7 +35,6 @@ RUN apk --no-cache add \
     gcc \
     git \
     make \
-    mercurial \
     rsync \
     subversion \
     wget

@@ -110,7 +110,7 @@ platform:
   arch: amd64
 steps:
   - name: push
-    image: ibuildthecloud/manifest:v1.2.3-patch1
+    image: plugins/manifest:1.2.3
     settings:
       password:
         from_secret: docker_password

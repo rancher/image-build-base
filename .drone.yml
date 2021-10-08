@@ -27,7 +27,7 @@ steps:
   commands:
   - apk add make
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-  - TAG=${DRONE_TAG} make image-push image-manifest
+  - TAG=${DRONE_TAG} make image-push
   environment:
     DOCKER_USERNAME:
       from_secret: docker_username
@@ -80,7 +80,7 @@ steps:
   commands:
   - apk add make
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-  - TAG=${DRONE_TAG} make image-push image-manifest
+  - TAG=${DRONE_TAG} make image-push
   environment:
     DOCKER_USERNAME:
       from_secret: docker_username

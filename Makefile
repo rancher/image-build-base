@@ -18,7 +18,8 @@ image-build:
 		--build-arg GOBORING_BUILD=$(GOBORING_BUILD) \
 		--tag $(ORG)/hardened-build-base:$(TAG) \
 		--tag $(ORG)/hardened-build-base:$(TAG)-$(ARCH) \
-		.
+		. \
+		-f Dockerfile.$(ARCH)
 
 .PHONY: image-push
 image-push:

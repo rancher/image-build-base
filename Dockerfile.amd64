@@ -1,6 +1,6 @@
-ARG GOLANG_VERSION=1.13.15
-FROM library/golang:${GOLANG_VERSION}-alpine AS goboring
-ARG GOBORING_BUILD=4
+ARG GOLANG_VERSION=1.17.5
+FROM library/golang:${GOLANG_VERSION}-alpine3.15 AS goboring
+ARG GOBORING_BUILD=7
 RUN apk --no-cache add \
     bash \
     g++
@@ -11,7 +11,7 @@ WORKDIR /usr/local/boring/go/src
 RUN ./make.bash
 COPY scripts/ /usr/local/boring/go/bin/
 
-FROM library/golang:${GOLANG_VERSION}-alpine AS trivy
+FROM library/golang:${GOLANG_VERSION}-alpine3.15 AS trivy
 ARG TRIVY_VERSION=0.18.3
 RUN set -ex; \
     if [ "$(go env GOARCH)" = "arm64" ]; then \
@@ -24,7 +24,7 @@ RUN set -ex; \
         mv trivy /usr/local/bin;                             \
     fi
 
-FROM library/golang:${GOLANG_VERSION}-alpine
+FROM library/golang:${GOLANG_VERSION}-alpine3.15
 RUN apk --no-cache add \
     bash \
     coreutils \

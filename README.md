@@ -9,7 +9,7 @@ Supported architectures
 
 ## Build
 
-```shell
+```sh
 TAG=v1.13.15b4 make
 ```
 

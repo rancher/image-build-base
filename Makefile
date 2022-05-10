@@ -8,15 +8,15 @@ endif
 
 ORG				?= rancher
 TAG 			?= v1.13.15b4
-GOLANG_VERSION 	?= $(shell echo $(TAG) | sed -e "s/v\(.*\)b.*/\1/g")
+GO_VERSION 	?= $(shell echo $(TAG) | sed -e "s/v\(.*\)b.*/\1/g")
 GOBORING_BUILD	?= $(shell echo $(TAG) | sed -e "s/v.*b//g")
 
 .PHONY: image-build
 image-build:
-	echo $(GOLANG_VERSION)
-	echo $(GOBORING_VERSION)
+	echo $(GO_VERSION)
+	echo $(GOBORING_BUILD)
 	docker build \
-		--build-arg GOLANG_VERSION=$(GOLANG_VERSION) \
+		--build-arg GO_VERSION=$(GO_VERSION) \
 		--build-arg GOBORING_BUILD=$(GOBORING_BUILD) \
 		--tag $(ORG)/hardened-build-base:$(TAG) \
 		--tag $(ORG)/hardened-build-base:$(TAG)-$(ARCH) \

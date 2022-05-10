@@ -13,6 +13,8 @@ GOBORING_BUILD	?= $(shell echo $(TAG) | sed -e "s/v.*b//g")
 
 .PHONY: image-build
 image-build:
+	echo $(GOLANG_VERSION)
+	echo $(GOBORING_VERSION)
 	docker build \
 		--build-arg GOLANG_VERSION=$(GOLANG_VERSION) \
 		--build-arg GOBORING_BUILD=$(GOBORING_BUILD) \

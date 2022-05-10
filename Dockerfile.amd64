@@ -1,12 +1,29 @@
 ARG GOLANG_VERSION=1.17.5
-FROM library/golang:${GOLANG_VERSION}-alpine3.15 AS goboring
 ARG GOBORING_BUILD=7
-RUN apk --no-cache add \
-    bash \
-    g++
-ADD https://go-boringcrypto.storage.googleapis.com/go${GOLANG_VERSION}b${GOBORING_BUILD}.src.tar.gz /usr/local/boring.tgz
-WORKDIR /usr/local/boring
-RUN tar xzf ../boring.tgz
+ARG BCI_IMAGE=registry.suse.com/bci/bci-base:latest
+FROM ${BCI_IMAGE} as bci
+RUN echo ${GOLANG_VERSION} && echo ${GOBORING_BUILD}
+
+# FROM library/golang:${GOLANG_VERSION}-alpine3.15 AS goboring
+FROM registry.suse.com/bci/golang:1.17 as goboring
+ARG GOLANG_VERSION
+ARG GOBORING_BUILD
+RUN echo ${GOLANG_VERSION} && echo ${GOBORING_BUILD}
+RUN zypper update -y&& \
+    zypper --non-interactive  install \
+        coreutils \
+        curl \
+        file \
+        gcc-c++ \
+        gcc \
+        make \
+        tar \
+        wget && \
+    zypper clean --all
+WORKDIR /usr/local
+RUN wget --output-document=boring.tgz https://go-boringcrypto.storage.googleapis.com/go${GOLANG_VERSION}b${GOBORING_BUILD}.src.tar.gz
+RUN tar xvzf boring.tgz --directory=/usr/local/boring
+#WORKDIR /usr/local/boring
 WORKDIR /usr/local/boring/go/src
 RUN ./make.bash
 COPY scripts/ /usr/local/boring/go/bin/
@@ -24,25 +41,33 @@ RUN set -ex; \
         mv trivy /usr/local/bin;                             \
     fi
 
-FROM library/golang:${GOLANG_VERSION}-alpine3.15
-RUN apk --no-cache add \
-    bash \
-    coreutils \
-    curl \
-    docker \
-    file \
-    g++ \
-    gcc \
-    git \
-    make \
-    mercurial \
-    rsync \
-    subversion \
-    wget
-RUN rm -fr /usr/local/go/*
-COPY --from=goboring /usr/local/boring/go/ /usr/local/go/
+#FROM library/golang:${GOLANG_VERSION}-alpine3.15
+FROM bci
+RUN zypper update -y 
+RUN zypper --non-interactive addrepo https://download.opensuse.org/repositories/devel:tools:scm/openSUSE_Leap_15.4/devel:tools:scm.repo 
+RUN zypper --gpg-auto-import-keys refresh && \
+    zypper --non-interactive  install \
+        bash \
+        coreutils \
+        curl \
+        docker \
+        file \
+        gcc-c++ \
+        gcc \
+        git \
+        make \
+        mercurial \
+        rsync \
+        subversion \
+        wget && \
+    zypper clean --all
+#RUN rm -fr /usr/local/go/*
+COPY --from=goboring /usr/local/boring/go /usr/local/go
 COPY --from=trivy /usr/local/bin/ /usr/bin/
-RUN set -x \
- && chmod -v +x /usr/local/go/bin/go-*.sh \
- && go version \
- && trivy --download-db-only --quiet
+ENV PATH /usr/local/go/bin:$PATH
+RUN ls -la /usr/local/go/bin/go
+RUN set -x && \
+    chmod -v +x /usr/local/go/bin/*
+RUN cd /usr/local/go/bin && ./go version
+RUN trivy --download-db-only --quiet
+# /usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin

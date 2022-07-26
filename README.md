@@ -5,6 +5,7 @@ This repository holds the Dockerfiles and builds scripts for [rancher/hardened-b
 Supported architectures
 
 - [x86_64/amd64](Dockerfile.amd64)
+- [arm64](Dockerfile.arm64)
 - [s390x](Dockerfile.s390x)
 
 ## Build

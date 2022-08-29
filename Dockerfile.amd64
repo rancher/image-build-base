@@ -1,15 +1,4 @@
-ARG GOLANG_VERSION=1.17.5
-FROM library/golang:${GOLANG_VERSION}-alpine3.15 AS goboring
-ARG GOBORING_BUILD=7
-RUN apk --no-cache add \
-    bash \
-    g++
-ADD https://go-boringcrypto.storage.googleapis.com/go${GOLANG_VERSION}b${GOBORING_BUILD}.src.tar.gz /usr/local/boring.tgz
-WORKDIR /usr/local/boring
-RUN tar xzf ../boring.tgz
-WORKDIR /usr/local/boring/go/src
-RUN ./make.bash
-COPY scripts/ /usr/local/boring/go/bin/
+ARG GOLANG_VERSION=1.19.0
 
 FROM library/golang:${GOLANG_VERSION}-alpine3.15 AS trivy
 ARG TRIVY_VERSION=0.18.3
@@ -39,8 +28,7 @@ RUN apk --no-cache add \
     rsync \
     subversion \
     wget
-RUN rm -fr /usr/local/go/*
-COPY --from=goboring /usr/local/boring/go/ /usr/local/go/
+COPY scripts/ /usr/local/go/bin/
 COPY --from=trivy /usr/local/bin/ /usr/bin/
 RUN set -x \
  && chmod -v +x /usr/local/go/bin/go-*.sh \

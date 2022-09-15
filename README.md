@@ -1,5 +1,7 @@
 # rancher/hardened-build-base
 
+**Note:** This branch maintains golang versions pre v1.19.0
+
 This repository holds the Dockerfiles and builds scripts for [rancher/hardened-build-base](https://hub.docker.com/r/rancher/hardened-build-base) Docker images. The `x86_64` image contains a Go compiler with FIPS 140-2 compliant crypto module, [GoBoring](https://github.com/golang/go/tree/dev.boringcrypto/misc/boring), used for [compiling rke2 components](https://docs.rke2.io/security/fips_support/#fips-support-in-cluster-components).
 
 Supported architectures

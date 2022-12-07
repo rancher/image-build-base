@@ -1,6 +1,7 @@
 ARG GOLANG_VERSION=1.19.0
+ARG ALPINE_VERSION=3.16
 
-FROM library/golang:${GOLANG_VERSION}-alpine3.15 AS trivy
+FROM library/golang:${GOLANG_VERSION}-alpine${ALPINE_VERSION} AS trivy
 ARG TRIVY_VERSION=0.18.3
 RUN set -ex; \
     if [ "$(go env GOARCH)" = "arm64" ]; then \
@@ -13,7 +14,7 @@ RUN set -ex; \
         mv trivy /usr/local/bin;                             \
     fi
 
-FROM library/golang:${GOLANG_VERSION}-alpine3.15
+FROM library/golang:${GOLANG_VERSION}-alpine${ALPINE_VERSION}
 RUN apk --no-cache add \
     bash \
     coreutils \

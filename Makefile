@@ -7,7 +7,7 @@ else
 endif
 
 ORG				?= rancher
-TAG 			?= v1.19.0
+TAG 			?= 1.20.3
 GOLANG_VERSION 	?= $(shell echo $(TAG) | sed -e "s/v\(.*\)b.*/\1/g")
 
 .PHONY: image-build

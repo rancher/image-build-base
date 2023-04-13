@@ -1,8 +1,8 @@
-ARG GOLANG_VERSION=1.19.0
-ARG ALPINE_VERSION=3.16
+ARG GOLANG_VERSION=1.20.3
+ARG ALPINE_VERSION=3.17
 
 FROM library/golang:${GOLANG_VERSION}-alpine${ALPINE_VERSION} AS trivy
-ARG TRIVY_VERSION=0.18.3
+ARG TRIVY_VERSION=0.39.1
 RUN set -ex; \
     if [ "$(go env GOARCH)" = "arm64" ]; then \
         wget -q "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-ARM64.tar.gz"; \
@@ -34,4 +34,4 @@ COPY --from=trivy /usr/local/bin/ /usr/bin/
 RUN set -x \
  && chmod -v +x /usr/local/go/bin/go-*.sh \
  && go version \
- && trivy --download-db-only --quiet
+ && trivy image --download-db-only --quiet

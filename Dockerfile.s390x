@@ -1,7 +1,7 @@
-ARG GO_VERSION=1.19.0-alpine3.15
+ARG GOLANG_VERSION=1.19.0-alpine3.15
 ARG ALPINE_VERSION=3.16
 
-FROM library/golang:${GO_VERSION}-alpine${ALPINE_VERSION}
+FROM library/golang:${GOLANG_VERSION}-alpine${ALPINE_VERSION}
 RUN apk --no-cache add \
     bash \
     coreutils \

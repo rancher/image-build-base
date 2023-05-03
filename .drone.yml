@@ -37,6 +37,45 @@ steps:
     event:
     - tag
 
+---
+kind: pipeline
+name: linux-arm64
+platform:
+  os: linux
+  arch: arm64
+
+steps:
+- name: build
+  image: docker:dind
+  volumes:
+  - name: dockersock
+    path: /var/run
+  commands:
+  - sleep 20
+  - apk add make
+  - TAG=${DRONE_TAG} make
+  when:
+    event:
+    - tag
+
+- name: push
+  image: docker:dind
+  volumes:
+  - name: dockersock
+    path: /var/run
+  commands:
+  - apk add make
+  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+  - TAG=${DRONE_TAG} make image-push
+  environment:
+    DOCKER_USERNAME:
+      from_secret: docker_username
+    DOCKER_PASSWORD:
+      from_secret: docker_password
+  when:
+    event:
+    - tag
+
 services:
 - name: docker
   image: docker:dind
@@ -123,4 +162,5 @@ steps:
 
 depends_on:
   - linux-amd64
+  - linux-arm64
   - linux-s390x

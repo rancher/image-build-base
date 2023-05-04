@@ -4,6 +4,8 @@ ifeq ($(UNAME_M), x86_64)
 	ARCH=amd64
 else ifeq ($(UNAME_M), aarch64)
 	ARCH=arm64
+else 
+	ARCH=$(UNAME_M)
 endif
 
 ORG        ?= rancher

@@ -2,8 +2,8 @@ UNAME_M = $(shell uname -m)
 ARCH=
 ifeq ($(UNAME_M), x86_64)
 	ARCH=amd64
-else
-	ARCH=$(UNAME_M)
+else ($(UNAME_M), aarch64)
+	ARCH=arm64
 endif
 
 ORG        ?= rancher

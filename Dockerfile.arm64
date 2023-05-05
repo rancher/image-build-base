@@ -12,6 +12,7 @@ FROM library/golang:${GOLANG_VERSION}-alpine${ALPINE_VERSION}
 RUN apk --no-cache add \
     bash \
     binutils \
+    libc6-compat \
     coreutils \
     curl \
     docker \

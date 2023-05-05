@@ -11,6 +11,7 @@ RUN set -ex; \
 FROM library/golang:${GOLANG_VERSION}-alpine${ALPINE_VERSION}
 RUN apk --no-cache add \
     bash \
+    binutils \
     coreutils \
     curl \
     docker \

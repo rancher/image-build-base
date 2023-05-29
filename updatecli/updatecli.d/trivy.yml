@@ -1,0 +1,65 @@
+---
+name: "Bump Trivy version"
+scms:
+  image-build-base:
+    kind: "github"
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      username: "{{ .github.username }}"
+      token: "{{ requiredEnv .github.token }}"
+      owner: "rancher"
+      repository: "image-build-base"
+      branch: "master"
+      commitmessage:
+        title: "Bump Trivy version"
+
+sources:
+  trivy-release:
+    name: "Get Trivy latest release"
+    kind: "githubrelease"
+    spec:
+      owner: "aquasecurity"
+      repository: "trivy"
+      token: "{{ requiredEnv .github.token }}"
+      versionfilter:
+        kind: "latest"
+    transformers:
+      - trimprefix: "v"
+
+conditions:
+  trivy-version:
+    name: "Check Trivy version in Dockerfile.amd64"
+    kind: "file"
+    scmid: "image-build-base"
+    disablesourceinput: true
+    spec:
+      files:
+        - "Dockerfile.amd64"
+        - "Dockerfile.arm64"
+      matchpattern: 'TRIVY_VERSION={{ source `trivy-release` }}'
+    failwhen: true
+
+targets:
+  trivy-version:
+    name: "Update Trivy version in Dockerfile.amd64"
+    kind: "file"
+    scmid: "image-build-base"
+    disablesourceinput: true
+    spec:
+      files:
+        - "Dockerfile.amd64"
+        - "Dockerfile.arm64"
+      matchpattern: 'TRIVY_VERSION=\d+\.\d+.\d+'
+      replacepattern: 'TRIVY_VERSION={{ source `trivy-release` }}'
+
+actions:
+  github:
+    title: "Bump Trivy version"
+    kind: "github/pullrequest"
+    scmid: "image-build-base"
+    spec:
+      automerge: false
+      draft: false
+      mergemethod: "squash"
+      parent: false

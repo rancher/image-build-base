@@ -10,7 +10,7 @@ for exe in "${@}"; do
         exit 1
     fi
     
-    if ! file "${exe}" | grep -E '.*ELF.*executable, .*, statically linked,.*'; then
+    if ! file "${exe}" | grep -E '.*ELF.*executable, .*, (statically|static-pie) linked,.*'; then
         file "${exe}" >&2
         echo "${exe}: not a statically linked executable" >&2
         exit 1

@@ -1,0 +1,19 @@
+name: Check Go versions and create releases
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 9 * * *'
+jobs:
+  release_go_versions:
+    name: Check Go versions and create releases
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+    - name: setup ecm-distro-tools
+      uses: rancher/ecm-distro-tools
+      with:
+        version: v0.24.0
+    - name: check go versions and release
+        run: rke2_release image-build-base-release

@@ -1,8 +1,9 @@
 name: Check Go versions and create releases
 on:
-  workflow_dispatch:
   schedule:
     - cron: "0 9 * * *"
+  workflow_dispatch:
+
 jobs:
   release_go_versions:
     name: Check Go versions and create releases

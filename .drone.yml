@@ -100,59 +100,6 @@ volumes:
   temp: {}
 ---
 kind: pipeline
-name: linux-s390x
-platform:
-  os: linux
-  arch: amd64
-
-node:
-  arch: s390x
-
-steps:
-- name: build
-  image: s390x/docker:18.06-dind
-  volumes:
-  - name: dockersock
-    path: /var/run
-  commands:
-  - sleep 20
-  - apk add make
-  - TAG=${DRONE_TAG} make
-  when:
-    event:
-    - tag
-
-- name: push
-  image: s390x/docker:18.06-dind
-  volumes:
-  - name: dockersock
-    path: /var/run
-  commands:
-  - apk add make
-  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-  - TAG=${DRONE_TAG} make image-push
-  environment:
-    DOCKER_USERNAME:
-      from_secret: docker_username
-    DOCKER_PASSWORD:
-      from_secret: docker_password
-  when:
-    event:
-    - tag
-
-services:
-- name: docker
-  image: s390x/docker:18.06-dind
-  privileged: true
-  volumes:
-  - name: dockersock
-    path: /var/run
-
-volumes:
-- name: dockersock
-  temp: {}
----
-kind: pipeline
 type: docker
 name: manifest
 platform:
@@ -174,4 +121,3 @@ steps:
 depends_on:
   - linux-amd64
   - linux-arm64
-  - linux-s390x

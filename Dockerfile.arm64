@@ -25,7 +25,8 @@ RUN apk --no-cache add \
     mercurial \
     rsync \
     subversion \
-    wget
+    wget \
+    yq
 COPY scripts/ /usr/local/go/bin/
 COPY --from=trivy /usr/local/bin/ /usr/bin/
 RUN set -x && \

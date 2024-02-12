@@ -34,12 +34,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Create and Push manifest
-        env:
-          TAG: ${GITHUB_REF_NAME}
-          REPOSITORY_OWNER: ${{github.repository_owner}}
+      - name: Create manifest
         run: |
           docker manifest create ${{github.repository_owner}}/hardened-build-base:${{github.ref_name}} \
-            ${{github.repository_owner}}/hardened-build-base:${TAG}
+            ${{github.repository_owner}}/hardened-build-base:${{github.ref_name}}
+      - name: Push manifest
+        run: |
           docker manifest push ${{github.repository_owner}}/hardened-build-base:${{github.ref_name}}
 

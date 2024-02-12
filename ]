@@ -21,9 +21,9 @@ jobs:
         with:
           ref: ${{github.ref}}
       - name: build
-        run: TAG=${TAG} ORG=${REPOSITORY_OWNER} make
+        run: TAG=${TAG} make
       - name: push
-        run: TAG=${TAG} ORG=${REPOSITORY_OWNER} make image-push
+        run: TAG=${TAG} ORG=${} make image-push
   manifest:
     name: Docker manifest
     runs-on: ubuntu-latest
@@ -38,9 +38,10 @@ jobs:
         env:
           TAG: ${GITHUB_REF_NAME}
           REPOSITORY_OWNER: ${{github.repository_owner}}
+          REPOSITORY: ${{github.repository}}
         run: |
-          docker manifest create ${REPOSITORY_OWNER}/hardened-build-base:${TAG} \
-            ${REPOSITORY_OWNER}/hardened-build-base:${TAG}
+          docker manifest create ${REPOSITORY_OWNER}/${REPOSITORY}:${TAG} \
+            ${REPOSITORY_OWNER}/${REPOSITORY}:${TAG}
 
-          docker manifest push ${REPOSITORY_OWNER}/hardened-build-base:${GITHUB_REF_NAME}
+          docker manifest push ${REPOSITORY_OWNER}/${REPOSITORY}:${GITHUB_REF_NAME}
 

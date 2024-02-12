@@ -39,6 +39,5 @@ jobs:
           docker manifest create ${{github.repository_owner}}/hardened-build-base:${{github.ref_name}} \
             ${{github.repository_owner}}/hardened-build-base:${{github.ref_name}}-amd64
       - name: Push manifest
-        run: |
-          docker manifest push ${{github.repository_owner}}/hardened-build-base:${{github.ref_name}}
+        run: docker manifest push ${{github.repository_owner}}/hardened-build-base:${{github.ref_name}}
 

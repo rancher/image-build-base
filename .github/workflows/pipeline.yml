@@ -39,8 +39,8 @@ jobs:
           TAG: ${GITHUB_REF_NAME}
           REPOSITORY_OWNER: ${{github.repository_owner}}
         run: |
-          docker manifest create ${REPOSITORY_OWNER}/hardened-build-base:${TAG} \
-            ${REPOSITORY_OWNER}/hardened-build-base:${TAG}
+          docker manifest create ${{github.repository_owner}}/hardened-build-base:${{github.ref_name}} \
+            ${{github.repository_owner}}/hardened-build-base:${TAG}
 
-          docker manifest push ${REPOSITORY_OWNER}/hardened-build-base:${GITHUB_REF_NAME}
+          docker manifest push ${{github.repository_owner}}/hardened-build-base${{github.ref_name}}
 

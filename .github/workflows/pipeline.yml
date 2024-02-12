@@ -18,7 +18,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: refs/tags/${TAG}
+          ref: refs/tags/${{env.GITHUB_REF_NAME}}
       - name: build
         run: TAG=${TAG} make
       - name: push

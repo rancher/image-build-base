@@ -4,8 +4,8 @@ on:
     tags:
       - 'v*'
 jobs:
-  build-amd64:
-    name: Build and Push amd64
+  linux-amd64:
+    name: Build and Push linux amd64
     runs-on: ubuntu-latest
     env:
       TAG: ${GITHUB_REF_NAME}
@@ -27,7 +27,7 @@ jobs:
   manifest:
     name: Docker manifest
     runs-on: ubuntu-latest
-    needs: build-amd64
+    needs: linux-amd64
     steps:
       - name: Docker Hub Login
         uses: docker/login-action@v3

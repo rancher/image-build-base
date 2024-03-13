@@ -38,6 +38,8 @@ jobs:
         with:
           context: .
           push: true
+          build-args: |
+            "GOLANG_VERSION=${{env.GOLANG_VERSION}}"
           tags: ${{ env.REPOSITORY_OWNER }}/hardened-build-base:${{ env.TAG }}
           file: Dockerfile
           platforms: linux/amd64, linux/arm64

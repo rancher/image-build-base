@@ -8,7 +8,7 @@ jobs:
     name: Build and Push amd64 and arm64
     runs-on: ubuntu-latest
     env:
-      TAG: ${GITHUB_REF_NAME}
+      TAG: ${{github.ref}}
       REPOSITORY_OWNER: ${{ github.repository_owner }}
     steps:
       - name: Checkout

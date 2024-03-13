@@ -17,6 +17,8 @@ RUN set -ex; \
     tar -xzf trivy_${TRIVY_VERSION}_Linux-ARM64.tar.gz; \
     mv trivy /usr/local/bin
 
+FROM trivy-${TARGETARCH} as trivy-base
+
 FROM library/golang:${GOLANG_VERSION}-alpine${ALPINE_VERSION}
 RUN apk --no-cache add \
     bash \
@@ -34,7 +36,7 @@ RUN apk --no-cache add \
     wget \
     yq
 COPY scripts/ /usr/local/go/bin/
-COPY --from=trivy-${TARGETARCH} /usr/local/bin/ /usr/bin/
+COPY --from=trivy-base /usr/local/bin/ /usr/bin/
 RUN set -x && \
     chmod -v +x /usr/local/go/bin/go-*.sh && \
     go version && \

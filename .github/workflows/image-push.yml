@@ -28,6 +28,11 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Set the GOLANG_VERSION value
+        id: get-GOLANG_VERSION
+        run: |
+          echo "$(make -s log | grep GOLANG_VERSION)" >> "$GITHUB_ENV"
+
       - name: Build Container Image
         uses: docker/build-push-action@v5
         with:

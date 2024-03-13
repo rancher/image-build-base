@@ -29,27 +29,25 @@ sources:
 
 conditions:
   trivy-version:
-    name: "Check Trivy version in Dockerfile.amd64"
+    name: "Check Trivy version in Dockerfile"
     kind: "file"
     scmid: "image-build-base"
     disablesourceinput: true
     spec:
       files:
-        - "Dockerfile.amd64"
-        - "Dockerfile.arm64"
+        - "Dockerfile"
       matchpattern: 'TRIVY_VERSION={{ source `trivy-release` }}'
     failwhen: true
 
 targets:
   trivy-version:
-    name: "Update Trivy version in Dockerfile.amd64"
+    name: "Update Trivy version in Dockerfile"
     kind: "file"
     scmid: "image-build-base"
     disablesourceinput: true
     spec:
       files:
-        - "Dockerfile.amd64"
-        - "Dockerfile.arm64"
+        - "Dockerfile"
       matchpattern: 'TRIVY_VERSION=\d+\.\d+.\d+'
       replacepattern: 'TRIVY_VERSION={{ source `trivy-release` }}'
 

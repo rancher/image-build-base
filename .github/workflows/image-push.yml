@@ -8,6 +8,9 @@ permissions:
 
 jobs:
   push-multiarch:
+    permissions:
+      contents: read
+      id-token: write
     name: Build and Push amd64 and arm64
     runs-on: ubuntu-latest
     env:

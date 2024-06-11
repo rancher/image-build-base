@@ -55,5 +55,5 @@ jobs:
             "GOLANG_VERSION=${{ env.GO_VERSION }}"
           tags: ${{ env.REPOSITORY_OWNER }}/hardened-build-base:${{ env.TAG }}
           file: Dockerfile
-          platforms: linux/amd64, linux/arm64
+          platforms: linux/amd64,linux/arm64
 

@@ -1,16 +1,15 @@
-ARG GOLANG_VERSION=1.19.0
-ARG ALPINE_VERSION=3.18
+ARG GOLANG_VERSION=1.22.4
 
-FROM library/golang:${GOLANG_VERSION}-alpine${ALPINE_VERSION} AS trivy
+FROM --platform=$TARGETPLATFORM library/golang:${GOLANG_VERSION}-alpine AS golang
 
-FROM trivy as trivy-amd64
+FROM alpine:3.18 as trivy-amd64
 ARG TRIVY_VERSION=0.42.0
 RUN set -ex; \
     wget -q "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz"; \
     tar -xzf trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz; \
     mv trivy /usr/local/bin
 
-FROM trivy as trivy-arm64
+FROM alpine:3.18 as trivy-arm64
 ARG TRIVY_VERSION=0.42.0
 RUN set -ex; \
     wget -q "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-ARM64.tar.gz"; \
@@ -19,7 +18,13 @@ RUN set -ex; \
 
 FROM trivy-${TARGETARCH} as trivy-base
 
-FROM library/golang:${GOLANG_VERSION}-alpine${ALPINE_VERSION}
+FROM alpine:3.18
+ENV GOTOOLCHAIN=local
+ENV GOPATH /go
+ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
+COPY --from=golang /usr/local/go/ /usr/local/go/
+RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 1777 "$GOPATH"
+WORKDIR $GOPATH
 RUN apk --no-cache add \
     bash \
     coreutils \

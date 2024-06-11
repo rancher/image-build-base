@@ -44,7 +44,7 @@ jobs:
       - name: Set the GOLANG_VERSION value
         id: get-GOLANG_VERSION
         run: |
-          echo "$(make -s log | grep GOLANG_VERSION)" >> "$GITHUB_ENV"
+          echo "GO_VERSION=$(make go-version)" >> "$GITHUB_ENV"
 
       - name: Build Container Image
         uses: docker/build-push-action@v5
@@ -52,8 +52,8 @@ jobs:
           context: .
           push: true
           build-args: |
-            "GOLANG_VERSION=${{ env.GOLANG_VERSION }}"
+            "GOLANG_VERSION=${{ env.GO_VERSION }}"
           tags: ${{ env.REPOSITORY_OWNER }}/hardened-build-base:${{ env.TAG }}
           file: Dockerfile
-          platforms: linux/amd64, linux/arm64
+          platforms: linux/amd64,linux/arm64
 

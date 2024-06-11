@@ -33,3 +33,7 @@ image-manifest:
 		$(ORG)/hardened-build-base:$(TAG)-$(ARCH)
 	DOCKER_CLI_EXPERIMENTAL=enabled docker manifest push \
 		$(ORG)/hardened-build-base:$(TAG)
+
+.PHONY: go-version
+go-version:
+	@echo $(GO_VERSION)

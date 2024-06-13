@@ -39,7 +39,8 @@ RUN apk --no-cache add \
     rsync \
     subversion \
     wget \
-    yq
+    yq \
+    zstd
 COPY scripts/ /usr/local/go/bin/
 COPY --from=trivy-base /usr/local/bin/ /usr/bin/
 RUN set -x && \

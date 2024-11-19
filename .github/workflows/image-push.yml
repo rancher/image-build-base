@@ -47,7 +47,7 @@ jobs:
           echo "GO_VERSION=$(make go-version)" >> "$GITHUB_ENV"
 
       - name: Build Container Image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: true

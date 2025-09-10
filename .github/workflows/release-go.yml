@@ -3,6 +3,11 @@ on:
   schedule:
     - cron: "0 17 * * *"
   workflow_dispatch:
+
+permissions:
+    contents: write
+    id-token: write
+
 jobs:
   release_go_versions:
     name: Check Go versions and create releases

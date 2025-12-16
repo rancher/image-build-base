@@ -3,18 +3,37 @@ on:
   schedule:
     - cron: "0 17 * * *"
   workflow_dispatch:
+
+permissions:
+    contents: read
+    id-token: write
+
 jobs:
   release_go_versions:
     name: Check Go versions and create releases
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - name: setup ecm-distro-tools
-        uses: rancher/ecm-distro-tools@v0.32.0
+      - name: "Read Secrets"
+        uses: rancher-eio/read-vault-secrets@main
         with:
-          version: v0.27.0
+          secrets: |
+            secret/data/github/repo/${{ github.repository }}/github/rancher-release-team-auto-tagger/app-credentials appId | APP_ID ;
+            secret/data/github/repo/${{ github.repository }}/github/rancher-release-team-auto-tagger/app-credentials privateKey | PRIVATE_KEY
+
+      - name: Generate GitHub App token
+        id: generate-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ env.APP_ID }}
+          private-key: ${{ env.PRIVATE_KEY }}
+
+      - name: setup ecm-distro-tools
+        uses: rancher/ecm-distro-tools@v0.56.0
+        with:
+          version: v0.56.0
+
       - name: check go versions and release
+        env:
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
         run: |
-          rke2_release image-build-base-release --alpine-version 3.18
+          rke2_release image-build-base-release

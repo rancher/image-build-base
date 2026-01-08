@@ -18,7 +18,7 @@ jobs:
       REPOSITORY_OWNER: ${{ github.repository_owner }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.ref }}
 

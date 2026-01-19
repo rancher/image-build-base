@@ -28,7 +28,7 @@ jobs:
           private-key: ${{ env.PRIVATE_KEY }}
 
       - name: setup ecm-distro-tools
-        uses: rancher/ecm-distro-tools@v0.56.0
+        uses: rancher/ecm-distro-tools@v0.61.1
         with:
           version: v0.56.0
 

@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Read Secrets"
-        uses: rancher-eio/read-vault-secrets@main
+        uses: rancher-eio/read-vault-secrets@0da85151ad1f19ed7986c41587e45aac1ace74b6 # v3
         with:
           secrets: |
             secret/data/github/repo/${{ github.repository }}/github/rancher-release-team-auto-tagger/app-credentials appId | APP_ID ;
@@ -22,13 +22,13 @@ jobs:
 
       - name: Generate GitHub App token
         id: generate-token
-        uses: actions/create-github-app-token@v2
+        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2
         with:
           app-id: ${{ env.APP_ID }}
           private-key: ${{ env.PRIVATE_KEY }}
 
       - name: setup ecm-distro-tools
-        uses: rancher/ecm-distro-tools@v0.56.0
+        uses: rancher/ecm-distro-tools@3e0a56672e82f28f119032b91fdc77dfe50fe4ac # v0.56.0
         with:
           version: v0.56.0
 

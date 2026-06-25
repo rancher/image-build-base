@@ -32,7 +32,9 @@ fi
 # intentional word-splitting of ${line} cleanly separates the flag from its arg.
 while IFS= read -r line || [ -n "${line}" ]; do
     line="${line%%#*}"
-    line="$(printf '%s' "${line}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+    # Trim leading/trailing whitespace (pure POSIX sh; avoids external deps like sed).
+    line=${line#"${line%%[![:space:]]*}"}
+    line=${line%"${line##*[![:space:]]}"}
     [ -z "${line}" ] && continue
     echo "go-mod-overrides: go mod edit ${line}"
     # shellcheck disable=SC2086

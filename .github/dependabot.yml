@@ -7,7 +7,7 @@ updates:
     schedule:
       interval: "monthly"
     labels:
-      - "kind/dependabot"
+      - "dependencies"
     reviewers:
       - "rancher/k3s"
 
@@ -17,7 +17,7 @@ updates:
     schedule:
       interval: "monthly"
     labels:
-      - "kind/dependabot"
+      - "dependencies"
     reviewers:
       - "rancher/k3s"
     groups:

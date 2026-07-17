@@ -14,18 +14,18 @@ scms:
       commitmessage:
         title: "Bump Trivy version"
 
-# aquasecurity has a IP Allow list for their GitHub API, so we cannot provide a token for the trivy-release source
+# aquasecurity/trivy has a IP Allow list for their GitHub API, so we cannot use the standard githubRelease
+# kind. Instead we look at their latest GHCR image which matches and is not restricted by the IP Allow list.
+# Their GHCR images don't have  a "v" prefix.
 sources:
   trivy-release:
-    name: "Get Trivy latest release"
-    kind: "githubrelease"
+    name: "Get Trivy latest release from Registry"
+    kind: "dockerimage"
     spec:
-      owner: "aquasecurity"
-      repository: "trivy"
+      image: "ghcr.io/aquasecurity/trivy"
       versionfilter:
-        kind: "latest"
-    transformers:
-      - trimprefix: "v"
+        kind: "semver"
+        pattern: ">0.0.0"
 
 conditions:
   trivy-version:

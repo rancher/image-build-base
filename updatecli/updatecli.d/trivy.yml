@@ -48,7 +48,7 @@ targets:
     spec:
       files:
         - "Dockerfile"
-      matchpattern: 'TRIVY_VERSION=\d+\.\d+.\d+'
+      matchpattern: 'TRIVY_VERSION=\d+\.\d+\.\d+'
       replacepattern: 'TRIVY_VERSION={{ source `trivy-release` }}'
 
 actions:
@@ -57,7 +57,8 @@ actions:
     kind: "github/pullrequest"
     scmid: "image-build-base"
     spec:
-      automerge: false
+      merge:
+        stragety: auto
+        mergemethod: squash
       draft: false
-      mergemethod: "squash"
       parent: false

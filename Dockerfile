@@ -2,7 +2,7 @@ ARG GOLANG_VERSION=1.22.4
 
 FROM --platform=$TARGETPLATFORM library/golang:${GOLANG_VERSION}-alpine AS golang
 
-FROM alpine:3.23 as trivy-amd64
+FROM alpine:3.24 as trivy-amd64
 ARG TRIVY_VERSION=0.69.3
 RUN set -ex; \
     TRIVY_TARBALL="trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz"; \
@@ -12,7 +12,7 @@ RUN set -ex; \
     tar -xzf "${TRIVY_TARBALL}"; \
     mv trivy /usr/local/bin
 
-FROM alpine:3.23 as trivy-arm64
+FROM alpine:3.24 as trivy-arm64
 ARG TRIVY_VERSION=0.69.3
 RUN set -ex; \
     TRIVY_TARBALL="trivy_${TRIVY_VERSION}_Linux-ARM64.tar.gz"; \
@@ -24,7 +24,7 @@ RUN set -ex; \
 
 FROM trivy-${TARGETARCH} as trivy-base
 
-FROM alpine:3.23
+FROM alpine:3.24
 ENV GOTOOLCHAIN=local
 ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH

@@ -5,7 +5,7 @@ updates:
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     labels:
       - "kind/dependabot"
     reviewers:
@@ -15,8 +15,15 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     labels:
       - "kind/dependabot"
     reviewers:
       - "rancher/k3s"
+    groups:
+      action-deps:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "major"

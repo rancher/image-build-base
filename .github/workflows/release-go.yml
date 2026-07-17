@@ -22,13 +22,13 @@ jobs:
 
       - name: Generate GitHub App token
         id: generate-token
-        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         with:
           app-id: ${{ env.APP_ID }}
           private-key: ${{ env.PRIVATE_KEY }}
 
       - name: setup ecm-distro-tools
-        uses: rancher/ecm-distro-tools@3e0a56672e82f28f119032b91fdc77dfe50fe4ac # v0.56.0
+        uses: rancher/ecm-distro-tools@b558c3371d4a363f131e31a87d5c47dae2bbebe7 # v0.75.1
         with:
           version: v0.56.0
 

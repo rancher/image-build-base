@@ -14,6 +14,7 @@ scms:
       commitmessage:
         title: "Bump Trivy version"
 
+# aquasecurity has a IP Allow list for their GitHub API, so we cannot provide a token for the trivy-release source
 sources:
   trivy-release:
     name: "Get Trivy latest release"
@@ -21,7 +22,6 @@ sources:
     spec:
       owner: "aquasecurity"
       repository: "trivy"
-      token: "{{ requiredEnv .github.token }}"
       versionfilter:
         kind: "latest"
     transformers:

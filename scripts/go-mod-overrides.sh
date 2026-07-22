@@ -30,12 +30,12 @@ fi
 
 # Detect Go workspace mode: a go.work file in the current directory, unless
 # workspace mode has been explicitly disabled via GOWORK=off.
-WORKSPACE_MODE=0
+WORKSPACE_MODE=
 if [ -f go.work ] && [ "${GOWORK}" != "off" ]; then
     WORKSPACE_MODE=1
 fi
 
-if [ "${WORKSPACE_MODE}" -eq 0 ] && [ ! -f go.mod ]; then
+if [ -z "${WORKSPACE_MODE}" ] && [ ! -f go.mod ]; then
     echo "go-mod-overrides: no go.mod found in $(pwd)" >&2
     exit 1
 fi

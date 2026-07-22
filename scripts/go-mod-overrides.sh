@@ -50,7 +50,7 @@ while IFS= read -r line || [ -n "${line}" ]; do
     line=${line#"${line%%[![:space:]]*}"}
     line=${line%"${line##*[![:space:]]}"}
     [ -z "${line}" ] && continue
-    if [ "${WORKSPACE_MODE}" -eq 1 ]; then
+    if [ -n "${WORKSPACE_MODE}" ]; then
         echo "go-mod-overrides: go work edit ${line}"
         # shellcheck disable=SC2086
         go work edit ${line}

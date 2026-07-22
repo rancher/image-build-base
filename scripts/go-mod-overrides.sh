@@ -61,7 +61,7 @@ while IFS= read -r line || [ -n "${line}" ]; do
     fi
 done < "${OVERRIDES}"
 
-if [ "${WORKSPACE_MODE}" -eq 1 ]; then
+if [ -n "${WORKSPACE_MODE}" ]; then
     # No `go work tidy` exists; workspace mode intentionally skips `go mod tidy`
     # because it is unreliable against monorepo staging replace directives.
     # Re-vendor with the workspace-aware command only if upstream vendors deps.

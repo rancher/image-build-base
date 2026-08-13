@@ -26,6 +26,18 @@ sources:
       versionfilter:
         kind: "semver"
         pattern: ">0.0.0"
+  trivy-amd64-sha:
+    name: "Get Trivy amd64 checksum"
+    kind: "shell"
+    spec:
+      command: |
+        curl -fsSL "https://github.com/aquasecurity/trivy/releases/download/v{{ source `trivy-release` }}/trivy_{{ source `trivy-release` }}_checksums.txt" | awk '$2 == "trivy_{{ source `trivy-release` }}_Linux-64bit.tar.gz" { print $1 }'
+  trivy-arm64-sha:
+    name: "Get Trivy arm64 checksum"
+    kind: "shell"
+    spec:
+      command: |
+        curl -fsSL "https://github.com/aquasecurity/trivy/releases/download/v{{ source `trivy-release` }}/trivy_{{ source `trivy-release` }}_checksums.txt" | awk '$2 == "trivy_{{ source `trivy-release` }}_Linux-ARM64.tar.gz" { print $1 }'
 
 conditions:
   trivy-version:
@@ -50,6 +62,26 @@ targets:
         - "Dockerfile"
       matchpattern: 'TRIVY_VERSION=\d+\.\d+\.\d+'
       replacepattern: 'TRIVY_VERSION={{ source `trivy-release` }}'
+  trivy-amd64-sha:
+    name: "Update Trivy amd64 checksum in Dockerfile"
+    kind: "file"
+    scmid: "image-build-base"
+    sourceid: "trivy-amd64-sha"
+    spec:
+      files:
+        - "Dockerfile"
+      matchpattern: '(TRIVY_TARBALL="trivy_[^"]+_Linux-64bit.tar.gz";\s+TRIVY_SHA256=")[^"]+(";)'
+      replacepattern: '$1{{ source `trivy-amd64-sha` }}$2'
+  trivy-arm64-sha:
+    name: "Update Trivy arm64 checksum in Dockerfile"
+    kind: "file"
+    scmid: "image-build-base"
+    sourceid: "trivy-arm64-sha"
+    spec:
+      files:
+        - "Dockerfile"
+      matchpattern: '(TRIVY_TARBALL="trivy_[^"]+_Linux-ARM64.tar.gz";\s+TRIVY_SHA256=")[^"]+(";)'
+      replacepattern: '$1{{ source `trivy-arm64-sha` }}$2'
 
 actions:
   github:

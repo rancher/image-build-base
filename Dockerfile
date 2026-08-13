@@ -6,7 +6,7 @@ FROM alpine:3.24 as trivy-amd64
 ARG TRIVY_VERSION=0.73.0
 RUN set -ex; \
     TRIVY_TARBALL="trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz"; \
-    TRIVY_SHA256="bbb64b9695866ce4a7a8f5c9592002c5961cab378577fa3f8a040df362b9b2ea"; \
+    TRIVY_SHA256="2edd39da482bb4e9831962487b68f68e3928ec3137794757f54d00383d79547b"; \
     wget -q "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/${TRIVY_TARBALL}"; \
     echo "${TRIVY_SHA256}  ${TRIVY_TARBALL}" | sha256sum -c -; \
     tar -xzf "${TRIVY_TARBALL}"; \
@@ -16,7 +16,7 @@ FROM alpine:3.24 as trivy-arm64
 ARG TRIVY_VERSION=0.73.0
 RUN set -ex; \
     TRIVY_TARBALL="trivy_${TRIVY_VERSION}_Linux-ARM64.tar.gz"; \
-    TRIVY_SHA256="2ca2c023109c2db6b2b77366b6717291452d4531167377d95c79547f0c8e3467"; \
+    TRIVY_SHA256="13833d97e8a1a5367471c372a173180157f593bece570e20d5d925fef552f5dd"; \
     wget -q "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/${TRIVY_TARBALL}"; \
     echo "${TRIVY_SHA256}  ${TRIVY_TARBALL}" | sha256sum -c -; \
     tar -xzf "${TRIVY_TARBALL}"; \

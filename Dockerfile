@@ -3,7 +3,7 @@ ARG GOLANG_VERSION=1.22.4
 FROM --platform=$TARGETPLATFORM library/golang:${GOLANG_VERSION}-alpine AS golang
 
 FROM alpine:3.24 as trivy-amd64
-ARG TRIVY_VERSION=0.74.0
+ARG TRIVY_VERSION=0.75.0
 RUN set -ex; \
     TRIVY_TARBALL="trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz"; \
     TRIVY_SHA256="2ae6fe3ee734b7fdf11335663e18c75ea12dccc76062f09f164a3b0f8be4371a"; \
@@ -13,7 +13,7 @@ RUN set -ex; \
     mv trivy /usr/local/bin
 
 FROM alpine:3.24 as trivy-arm64
-ARG TRIVY_VERSION=0.74.0
+ARG TRIVY_VERSION=0.75.0
 RUN set -ex; \
     "; \
     wget -q "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/${TRIVY_TARBALL}"; \

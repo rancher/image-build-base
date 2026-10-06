@@ -71,7 +71,7 @@ targets:
       files:
         - "Dockerfile"
       matchpattern: '(TRIVY_TARBALL="trivy_[^"]+_Linux-64bit.tar.gz";\s*\\\s*TRIVY_SHA256=")[^"]+(";)'
-      replacepattern: '$1{{ source `trivy-amd64-sha` }}$2'
+      replacepattern: '${1}{{ source `trivy-amd64-sha` }}${2}'
   trivy-arm64-sha:
     name: "Update Trivy arm64 checksum in Dockerfile"
     kind: "file"
@@ -81,7 +81,7 @@ targets:
       files:
         - "Dockerfile"
       matchpattern: '(TRIVY_TARBALL="trivy_[^"]+_Linux-ARM64.tar.gz";\s*\\\s*TRIVY_SHA256=")[^"]+(";)'
-      replacepattern: '$1{{ source `trivy-arm64-sha` }}$2'
+      replacepattern: '${1}{{ source `trivy-arm64-sha` }}${2}'
 
 actions:
   github:

@@ -1,4 +1,5 @@
 #!/bin/sh
+# TODO: Remove this script once all image-build repos use the new go-mod-replacer tool.
 # go-mod-overrides.sh — apply tracked go.mod overrides on top of an upstream
 # module so Rancher images stay CVE-free even when upstream has not yet bumped.
 #

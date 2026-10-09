@@ -2,6 +2,13 @@ ARG GOLANG_VERSION=1.22.4
 
 FROM --platform=$TARGETPLATFORM library/golang:${GOLANG_VERSION}-alpine AS golang
 
+FROM golang AS tools
+WORKDIR /src/tools
+COPY tools/go.mod tools/go.sum ./
+RUN go mod download
+COPY tools/ ./
+RUN go build -o /usr/local/go/bin/go-mod-replacer ./go-mod-replacer
+
 FROM alpine:3.24 as trivy-amd64
 ARG TRIVY_VERSION=0.74.0
 RUN set -ex; \
@@ -48,6 +55,8 @@ RUN apk --no-cache add \
     yq \
     zstd
 COPY scripts/ /usr/local/go/bin/
+COPY --from=tools /usr/local/go/bin/go-mod-replacer /usr/local/go/bin/
+COPY global_overrides.json /usr/local/share/go-mod-replacer/global_overrides.json
 COPY --from=trivy-base /usr/local/bin/ /usr/bin/
 RUN set -x && \
     chmod -v +x /usr/local/go/bin/go-*.sh && \

@@ -14,6 +14,11 @@
       "targetVersion": "v0.56.0",
       "cves": "CVE-2026-56855, CVE-2026-78662",
       "minimumGo": "1.26.0"
+    },
+    "google.golang.org/grpc": {
+      "targetVersion": "v1.83.2",
+      "cves": "CVE-2026-84303, CVE-2026-84304, CVE-2026-84445",
+      "minimumGo": "1.25.0"
     }
   }
 }

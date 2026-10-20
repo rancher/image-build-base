@@ -6,8 +6,8 @@
       "minimumGo": "1.26.0"
     },
     "golang.org/x/text": {
-      "targetVersion": "v0.39.0",
-      "cves": "CVE-2026-56852",
+      "targetVersion": "v0.41.0",
+      "cves": "CVE-2026-56852, cve-2026-56851",
       "minimumGo": "1.25.0"
     },
     "golang.org/x/crypto": {

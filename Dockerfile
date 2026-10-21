@@ -10,7 +10,7 @@ COPY tools/ ./
 RUN go build -o /usr/local/go/bin/go-mod-replacer ./go-mod-replacer
 
 FROM alpine:3.24 as trivy-amd64
-ARG TRIVY_VERSION=0.76.0
+ARG TRIVY_VERSION=0.76.1
 RUN set -ex; \
     TRIVY_TARBALL="trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz"; \
     TRIVY_SHA256="e24b1c51293c1b15e4ba8d45bbc7891ba053f90278ec2698f3562c993e145fe7"; \
@@ -20,7 +20,7 @@ RUN set -ex; \
     mv trivy /usr/local/bin
 
 FROM alpine:3.24 as trivy-arm64
-ARG TRIVY_VERSION=0.76.0
+ARG TRIVY_VERSION=0.76.1
 RUN set -ex; \
     TRIVY_TARBALL="trivy_${TRIVY_VERSION}_Linux-ARM64.tar.gz"; \
     TRIVY_SHA256="aab21e677a7b7071fc79f1711480840754c18a1b9d9cefa7ccd06af63a0e8f4c"; \

@@ -19,6 +19,11 @@
       "targetVersion": "v1.83.2",
       "cves": "CVE-2026-84303, CVE-2026-84304, CVE-2026-84445",
       "minimumGo": "1.25.0"
+    },
+    "github.com/go-jose/go-jose/v4": {
+      "targetVersion": "v4.1.6",
+      "cves": "CVE-2026-116587",
+      "minimumGo": "1.24.0"
     }
   }
 }

@@ -1,8 +1,8 @@
 {
   "modules": {
     "golang.org/x/net": {
-      "targetVersion": "v0.60.0",
-      "cves": "CVE-2026-97032, CVE-2026-78659, CVE-2026-78663, CVE-2026-78669",
+      "targetVersion": "v0.62.0",
+      "cves": "CVE-2026-97032, CVE-2026-78659, CVE-2026-78663, CVE-2026-78669, CVE-2026-97045, CVE-2026-78661",
       "minimumGo": "1.26.0"
     },
     "golang.org/x/text": {

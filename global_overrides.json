@@ -24,6 +24,11 @@
       "targetVersion": "v4.1.6",
       "cves": "CVE-2026-116587",
       "minimumGo": "1.24.0"
+    },
+    "github.com/klauspost/compress": {
+      "targetVersion": "v1.20.2",
+      "cves": "CVE-2026-116591",
+      "minimumGo": "1.25.0"
     }
   }
 }
